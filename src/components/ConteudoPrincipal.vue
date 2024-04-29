@@ -1,31 +1,16 @@
 <template>
     <main class="conteudo-principal">
-        <section>
-            <span class="subtitulo-lg sua-lista-texto">Sua lista:</span>
-            <ul
-                class="ingredientes-sua-lista"
-                v-if="ingredientes.length > 0">
-                    <li 
-                        class="ingrediente"
-                        v-for="ingrediente in ingredientes"
-                        :key="ingrediente">
-                            {{ ingrediente }}
-                    </li>
-            </ul>
-            <p
-                class="paragrafo lista-vazia"
-                v-else>
-                    <img src="../assets/icons/lista-vazia.svg" alt="Icone de pesquisa">
-                    Sua lista está vazia, selecione ingredientes para iniciar.
-            </p>
-        </section>
-        <SelecionarIngredientes />
+        <SuaLista 
+            :ingredientes="ingredientes" />
+        <SelecionarIngredientes 
+            @adicionar-ingrediente="ingredientes.push($event)" />
     </main>
 </template>
 
 <script setup>
 
 import SelecionarIngredientes from './SelecionarIngredientes.vue'
+import SuaLista from './SuaLista.vue'
 
 const ingredientes = [
     'Alho',
@@ -46,42 +31,6 @@ const ingredientes = [
     flex-direction: column;
     align-items: center;
     gap: 5rem;
-}
-
-.sua-lista-texto {
-    color: var(--coral, #F0633C);
-    display: block;
-    text-align: center;
-    margin-bottom: 1.5rem;
-    }
-
-.ingredientes-sua-lista {
-    display: flex;
-    justify-content: center;
-    gap: 1rem 1.5rem;
-    flex-wrap: wrap;
-}
-
-.ingrediente {
-    display: inline-block;
-    border-radius: 0.5rem;
-    min-width: 4.25rem;
-    padding: 0.5rem;
-    text-align: center;
-    transition: 0.2s;
-    color: var(--creme, #FFFAF3);
-    background: var(--coral, #F0633C);
-    font-weight: 700;
-}
-
-.lista-vazia {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 0.25rem;
-    color: var(--coral, #F0633C);
-    text-align: center;
 }
 
 @media only screen and (max-width: 1300px) {

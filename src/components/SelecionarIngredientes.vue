@@ -8,7 +8,9 @@
             <li
                 v-for="categoria in categorias"
                 :key="categoria.nome">
-                    {{ categoria.nome }}
+                    <CardCategoria
+                        :categoria="categoria"
+                        @adicionar-ingrediente="$emit('adicionarIngrediente', $event)" />
             </li>
         </ul>
         <p class="paragrafo dica">
@@ -19,9 +21,15 @@
 
 <script setup>
 
-import { obterCategorias } from '@/http';
+import { ref, reactive, onMounted } from 'vue'
 
-const categorias = obterCategorias()
+import { obterCategorias } from '@/http'
+import CardCategoria from './CardCategoria.vue';
+
+const categorias = reactive(ref([])) 
+onMounted(async () => {
+    categorias.value = await obterCategorias()
+})
 
 </script>
 
