@@ -10,23 +10,26 @@
                 :key="categoria.nome">
                     <CardCategoria
                         :categoria="categoria"
-                        @adicionar-ingrediente="$emit('adicionarIngrediente', $event)" />
+                        @adicionar-ingrediente="$emit('adicionarIngrediente', $event)"
+                        @remover-ingrediente="$emit('removerIngrediente', $event)" />
             </li>
         </ul>
         <p class="paragrafo dica">
             *Atenção: consideramos que você tem em casa sal, pimenta e água
         </p>
+        <BotaoPrincipal texto="Buscar receitas!" />
     </section>
 </template>
 
 <script setup>
 
-import { ref, reactive, onMounted } from 'vue'
+import { ref, onMounted } from 'vue'
 
 import { obterCategorias } from '@/http'
-import CardCategoria from './CardCategoria.vue';
+import CardCategoria from './CardCategoria.vue'
+import BotaoPrincipal from './BotaoPrincipal.vue'
 
-const categorias = reactive(ref([])) 
+const categorias = ref([]) 
 onMounted(async () => {
     categorias.value = await obterCategorias()
 })
@@ -40,17 +43,14 @@ onMounted(async () => {
     flex-direction: column;
     align-items: center;
 }
-
 .titulo-ingredientes {
     color: var(--verde-medio, #3D6D4A);
     display: block;
     margin-bottom: 1.5rem;
 }
-
 .instrucoes {
      margin-bottom: 2rem;
 }
-
 .categorias {
     margin-bottom: 1rem;
     display: flex;
@@ -58,12 +58,10 @@ onMounted(async () => {
     gap: 1.5rem;
     flex-wrap: wrap;
 }
-
 .dica {
     align-self: flex-start;
     margin-bottom: 3.5rem;
 }
-
 @media only screen and (max-width: 767px) {
     .dica {
         margin-bottom: 2.5rem;

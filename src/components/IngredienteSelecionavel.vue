@@ -18,12 +18,15 @@ import Tag from './Tag.vue'
 const props = defineProps({
     ingrediente: String
 })
-const emit = defineEmits(['adicionarIngrediente'])
+const emit = defineEmits(['adicionarIngrediente', 'removerIngrediente'])
 const selecionado = ref(false)
-const aoClicar = () => {
+function aoClicar() {
     selecionado.value = !selecionado.value
     if(selecionado.value) {
         emit('adicionarIngrediente', props.ingrediente)
+    }
+    else {
+        emit('removerIngrediente', props.ingrediente)
     }
 }
 

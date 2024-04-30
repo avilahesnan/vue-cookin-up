@@ -3,20 +3,25 @@
         <SuaLista 
             :ingredientes="ingredientes" />
         <SelecionarIngredientes 
-            @adicionar-ingrediente="ingredientes.push($event)" />
+            @adicionar-ingrediente="adicionarIngrediente"
+            @remover-ingrediente="removerIngrediente" />
     </main>
 </template>
 
 <script setup>
 
+import { ref } from 'vue'
+
 import SelecionarIngredientes from './SelecionarIngredientes.vue'
 import SuaLista from './SuaLista.vue'
 
-const ingredientes = [
-    'Alho',
-    'Leite',
-    'Pão'
-]
+const ingredientes = ref([])
+function adicionarIngrediente(ingrediente) {
+    ingredientes.value.push(ingrediente)
+}
+function removerIngrediente(ingrediente) {
+    ingredientes.value = ingredientes.value.filter(lista => ingrediente !== lista)
+}
 
 </script>
 
@@ -32,14 +37,12 @@ const ingredientes = [
     align-items: center;
     gap: 5rem;
 }
-
 @media only screen and (max-width: 1300px) {
     .conteudo-principal {
         padding: 5rem 3.75rem;
         gap: 3.5rem;
     }
 }
-
 @media only screen and (max-width: 767px) {
     .conteudo-principal {
         padding: 4rem 1.5rem;

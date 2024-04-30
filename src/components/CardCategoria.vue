@@ -13,7 +13,8 @@
                 :key="ingrediente">
                     <IngredienteSelecionavel 
                         :ingrediente="ingrediente"
-                        @adicionar-ingrediente="$emit('adicionarIngrediente', $event)" />
+                        @adicionar-ingrediente="$emit('adicionarIngrediente', $event)"
+                        @remover-ingrediente="$emit('removerIngrediente', $event)" />
             </li>
         </ul>
     </article>
@@ -45,30 +46,25 @@ const props = defineProps({
     align-items: center;
     gap: 2rem;
 }
-
 .categoria__cabecalho {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 0.5rem;
 }
-
 .categoria__imagem {
     width: 3.5rem;
 }
-
 .categoria__nome {
     text-align: center;
     color: var(--verde-medio, #3D6D4A);
     font-weight: 700;
 }
-
 .categoria__ingredientes {
     display: flex;
     justify-content: center;
     gap: 0.5rem;
     flex-wrap: wrap;
 }
-
 
 </style>
