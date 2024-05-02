@@ -2,9 +2,13 @@
     <main class="conteudo-principal">
         <SuaLista 
             :ingredientes="ingredientes" />
-        <SelecionarIngredientes 
+        <SelecionarIngredientes
+            v-if="conteudo === 'SelecionarIngredientes'"
             @adicionar-ingrediente="adicionarIngrediente"
-            @remover-ingrediente="removerIngrediente" />
+            @remover-ingrediente="removerIngrediente"
+            @buscar-receitas="navegar('MostrarReceitas')" />
+        <MostrarReceitas
+            v-else-if="conteudo === 'MostrarReceitas'" />
     </main>
 </template>
 
@@ -14,13 +18,18 @@ import { ref } from 'vue'
 
 import SelecionarIngredientes from './SelecionarIngredientes.vue'
 import SuaLista from './SuaLista.vue'
+import MostrarReceitas from './MostrarReceitas.vue'
 
 const ingredientes = ref([])
+const conteudo = ref('SelecionarIngredientes')
 function adicionarIngrediente(ingrediente) {
     ingredientes.value.push(ingrediente)
 }
 function removerIngrediente(ingrediente) {
     ingredientes.value = ingredientes.value.filter(lista => ingrediente !== lista)
+}
+function navegar(pagina) {
+    conteudo.value = pagina
 }
 
 </script>
